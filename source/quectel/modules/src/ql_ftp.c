@@ -367,7 +367,7 @@ static void ql_ftp_download_cb(const char *data, size_t len, void* arg)
         {
             LOG_W("GET OK FAILED %s", body_desc);
             handle->err = QL_FTP_ERR_DOWNLOAD;
-        if (handle->usr_write_cb != NULL)
+            if (handle->usr_write_cb != NULL)
             {
                 handle->usr_write_cb(QL_FTP_USR_DOWNLOAD_END, NULL, -1, handle->user_write_data);
             }
@@ -376,7 +376,7 @@ static void ql_ftp_download_cb(const char *data, size_t len, void* arg)
         else if (handle->usr_write_cb != NULL)
         {
             handle->usr_write_cb(QL_FTP_USR_DOWNLOAD_END, NULL, 0, handle->user_write_data);
-    }
+        }
     }
     else if (strstr(buffer, "ERROR") != NULL || strstr(buffer, "+CME ERROR") != NULL)
     {

@@ -2,6 +2,23 @@
 #define __QUECTEL_COMMON_DEF_H__
 
 /**
+ * @brief voice manager code
+ */
+typedef enum
+{
+    QL_VOICE_MANAGER_OK,
+    QL_VOICE_MANAGER_ERR_NOINIT,
+    QL_VOICE_MANAGER_ERR_DIAL,
+    QL_VOICE_MANAGER_ERR_ANSWER,
+    QL_VOICE_MANAGER_ERR_SIM,
+    QL_VOICE_MANAGER_ERR_REGISTER,
+    QL_VOICE_MANAGER_ERR_ACTIVE,
+    QL_VOICE_MANAGER_ERR_DEACTIVE,
+
+    QL_VOICE_MANAGER_ERR_UNKNOWN
+} QL_VOICE_MANAGER_ERR_CODE_E;
+
+/**
  * @brief network error code
  */
 typedef enum
@@ -16,6 +33,30 @@ typedef enum
 
     QL_NET_ERR_UNKNOWN
 } QL_NET_ERR_CODE_E;
+
+/**
+ * @brief GNSS error code
+ */
+typedef enum
+{
+    QL_GNSS_SUCCESS = 0,
+    QL_GNSS_NOT_INIT = 1,
+    QL_GNSS_ERR_INVALID_PARAM = 501,
+    QL_GNSS_ERR_NOT_SUPPORTED = 502,
+    QL_GNSS_ERR_BUSY = 503,
+    QL_GNSS_ERR_SESSION_ONGOING = 504,
+    QL_GNSS_ERR_SESSION_INACTIVE = 505,
+    QL_GNSS_ERR_TIMEOUT = 506,
+    QL_GNSS_ERR_FUNC_DISABLED = 507,
+    QL_GNSS_ERR_TIME_INFO = 508,
+    QL_GNSS_ERR_VALIDITY_TIME = 512,
+    QL_GNSS_ERR_INTERNAL_RESOURCE = 513,
+    QL_GNSS_ERR_GNSS_LOCKED = 514,
+    QL_GNSS_ERR_E911_END = 515,
+    QL_GNSS_ERR_NOT_FIXED = 516,
+    QL_GNSS_ERR_CMUX_CLOSED = 517,
+    QL_GNSS_ERR_UNKNOWN = 549
+} QL_GNSS_ERR_CODE_E;
 
 /**
  * @brief http client error code
@@ -43,7 +84,7 @@ typedef enum
     QL_HTTP_ERR_CONFLICT  = 409,
     QL_HTTP_ERR_LENGTH_REQUIRED = 411,
     QL_HTTP_ERR_INTERNAL_SERVER = 500,
-    
+
     QL_HTTP_ERR_UNKNOWN           = 701,  // Unknown/unclassified error
     QL_HTTP_ERR_TIMEOUT           = 702,  // Request timeout (server not responding)
     QL_HTTP_ERR_BUSY              = 703,  // HTTP module is busy processing another request

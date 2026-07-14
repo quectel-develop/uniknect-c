@@ -19,6 +19,9 @@
 #include "cli_udp_server.h"
 #include "cli_net.h"
 #include "cli_fota.h"
+#include "cli_gnss.h"
+#include "cli_voice_manager.h"
+#include "cli_sms.h"
 
 Cli_Menu_t cli_fun_table[] = {
     {"getversion",  cli_mcu_firmware_version,       NULL},
@@ -31,6 +34,9 @@ Cli_Menu_t cli_fun_table[] = {
     {"psm",         cli_psm_test,                   cli_psm_get_help},
     {"reboot",      cli_reboot,                     cli_reboot_help},
     {"fota",        cli_fota_test,                  cli_fota_get_help},
+    {"gnss",        cli_gnss_test,                  cli_gnss_get_help},
+    {"voice",       cli_voice_manager_test,         cli_voice_manager_get_help},
+    {"sms",         cli_sms_test,                   cli_sms_get_help},
     {"at",          NULL,                           NULL},
     {"debug",       NULL,                           NULL},
     {"help",        NULL,                           NULL},

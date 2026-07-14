@@ -856,7 +856,7 @@ static void client_parser(void *argv)
                         || strstr(client->recv_line_buf, "QHTTPPOST") != NULL
                         || strstr(client->recv_line_buf, "QHTTPPUT") != NULL)
                     {
-                    qosa_sem_release(client->resp_notice);
+                        qosa_sem_release(client->resp_notice);
                     }
                     client->urc->func(client, client->recv_line_buf, client->recv_line_len, client->arg);
                 }

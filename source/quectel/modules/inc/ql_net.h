@@ -138,4 +138,4 @@ void ql_net_deinit(ql_net_t handle);
 }
 #endif
 
-#endif // __ql_NETWORK_H__
+#endif // __QL_NET_H__

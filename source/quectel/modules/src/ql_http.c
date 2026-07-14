@@ -179,7 +179,7 @@ static void ql_http_cb(const char *data, size_t len, void* arg)
             memset(body_data, 0, HTTP_POST_MAX_LEN);
             read_len = at_client_self_recv(handle->client, body_data, HTTP_POST_MAX_LEN, (handle->timeout - 1) * RT_TICK_PER_SECOND, 1, false);
             if (handle->usr_write_cb != NULL)
-            handle->usr_write_cb(QL_HTTP_USR_EVENT_HEADER_DATA, body_data, read_len, handle->user_write_data);
+                handle->usr_write_cb(QL_HTTP_USR_EVENT_HEADER_DATA, body_data, read_len, handle->user_write_data);
             if (strcmp(body_data, "\r\n") == 0)
             {
                 LOG_I("http header end");

@@ -238,17 +238,17 @@ int ql_psm_settings_read(at_client_t client, ql_psm_setting_s *settings)
     if (!ql_use_cpsms_for_psm())
     {
         if (at_obj_exec_cmd(client, resp, "AT+QSCLK?") < 0)
-	{
-		at_delete_resp(resp);
-		return -1;
-	}
-	for (int i = 0; i < resp->line_counts; i++)
-	{
-		const char *line = at_resp_get_line(resp, i + 1);
-		int tmp = 0;
-		char TAU[9] = {0};
-		char Active[9] = {0};
-		LOG_I("%s", line);
+        {
+            at_delete_resp(resp);
+            return -1;
+        }
+        for (int i = 0; i < resp->line_counts; i++)
+        {
+            const char *line = at_resp_get_line(resp, i + 1);
+            int tmp = 0;
+            char TAU[9] = {0};
+            char Active[9] = {0};
+            LOG_I("%s", line);
             if (sscanf(line, "+QSCLK: %d",&tmp) != 1)
             {
                 continue;
@@ -262,10 +262,10 @@ int ql_psm_settings_read(at_client_t client, ql_psm_setting_s *settings)
                 return 0;
             }
             if (sscanf(line, "+QSCLK: %d,%*d,\"%[^\"]\",\"%[^\"]\"",&tmp, TAU, Active) == 3)
-		{
-			settings->Mode = (bool)tmp;
-			settings->Requested_Periodic_TAU = convert_TAU_binary_to_seconds(TAU);
-			settings->Requested_Active_Time = convert_Active_binary_to_seconds(Active);
+            {
+                settings->Mode = (bool)tmp;
+                settings->Requested_Periodic_TAU = convert_TAU_binary_to_seconds(TAU);
+                settings->Requested_Active_Time = convert_Active_binary_to_seconds(Active);
                 LOG_I("PSM settings: %d, %d, %d", settings->Mode, settings->Requested_Periodic_TAU, settings->Requested_Active_Time);
                 ret = 0;
                 break;
@@ -288,17 +288,17 @@ int ql_psm_settings_read(at_client_t client, ql_psm_setting_s *settings)
             {
                 settings->Requested_Periodic_TAU = TAU / 1000;
                 settings->Requested_Active_Time = Active / 1000;
-			at_delete_resp(resp);
-			return 0;
-		}
-	}
+                at_delete_resp(resp);
+                return 0;
+            }
+        }
     }
     else
     {
         if (at_obj_exec_cmd(client, resp, "AT+CPSMS?") < 0)
         {
-	at_delete_resp(resp);
-	return -1;
+            at_delete_resp(resp);
+            return -1;
         }
         for (int i = 0; i < resp->line_counts; i++)
         {
@@ -371,7 +371,7 @@ void ql_psm_wakeup(at_client_t client)
     {
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
         LOG_I("set dtr low to wakeup modem");
-    qosa_task_sleep_ms(500);
+        qosa_task_sleep_ms(500);
         at_response_t resp = at_create_resp_new(256, 0, (5000), NULL);
         at_obj_exec_cmd(client, resp, "AT+QSCLK=0");
         at_delete_resp(resp);

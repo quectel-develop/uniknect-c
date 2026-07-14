@@ -97,40 +97,40 @@ int cli_tcp_client_test(short sin_port, char *sin_addr, int loop_count, int loop
     }
     else
     {
-    sprintf(buf, "%d", fd);
-    for (int i=0; i<loop_count; i++)
-    {
-        ret = send(fd,buf,strlen(buf),0);
-        if (ret > 0)
+        sprintf(buf, "%d", fd);
+        for (int i=0; i<loop_count; i++)
         {
-            at_print_raw_cmd("tcp send data", buf, ret);
-            LOG_I("Tcp client send ok len = %d, fd = %d", ret, fd);
-        }
-        else
-        {
-            LOG_E("Tcp client send %s err %d, %d", buf, ret, fd);
-            break;
-        }
+            ret = send(fd,buf,strlen(buf),0);
+            if (ret > 0)
+            {
+                at_print_raw_cmd("tcp send data", buf, ret);
+                LOG_I("Tcp client send ok len = %d, fd = %d", ret, fd);
+            }
+            else
+            {
+                LOG_E("Tcp client send %s err %d, %d", buf, ret, fd);
+                break;
+            }
 
-        memset(buf,0,SOCKET_MAX_LENGTH);
-        ret = recv(fd,buf,SOCKET_MAX_LENGTH,0);
-        if (ret > 0) 
-        {
-            at_print_raw_cmd("tcp recv data", buf, ret);
-            LOG_I("Tcp client recv len: %d, fd :%d", ret, fd);
-        }
-        else if (ret == 0)
-        {
-            LOG_I("peer close");
-            break;
-        }
-        else
-        {
-            LOG_E("tcp recv timeout");
-            break;
-        }
+            memset(buf,0,SOCKET_MAX_LENGTH);
+            ret = recv(fd,buf,SOCKET_MAX_LENGTH,0);
+            if (ret > 0) 
+            {
+                at_print_raw_cmd("tcp recv data", buf, ret);
+                LOG_I("Tcp client recv len: %d, fd :%d", ret, fd);
+            }
+            else if (ret == 0)
+            {
+                LOG_I("peer close");
+                break;
+            }
+            else
+            {
+                LOG_E("tcp recv timeout");
+                break;
+            }
 
-        qosa_task_sleep_ms(loop_interval);
+            qosa_task_sleep_ms(loop_interval);
         }
     }
     free(buf);

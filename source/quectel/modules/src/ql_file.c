@@ -245,6 +245,7 @@ int ql_fwrite(const void *ptr, size_t size, size_t nmemb, QL_FILE stream)
     }
     qosa_sem_wait(stream->sem, QOSA_WAIT_FOREVER);
     qosa_mutex_unlock(stream->client->lock);
+    at_delete_resp(resp);
     return (stream->err == -1) ? -1 : (stream->len / size);
 }
 
@@ -281,7 +282,7 @@ int ql_ftell(QL_FILE stream)
     for (int i = 0; i < resp->line_counts; i++)
     {
         line = at_resp_get_line(resp, i + 1);
-        if (sscanf(line, "+QFWRITE: %d,%*d", &position) == 1)
+        if (sscanf(line, "+QFPOSITION: %d", &position) == 1)
         {
             break;
         }

@@ -28,6 +28,8 @@
 #define __QUECTEL_UFP_FEATURE_SUPPORT_DEBUG_SAVE__  /* Must  enable __QUECTEL_UFP_FEATURE_SUPPORT_DEBUG_PRINT__  and  __QUECTEL_UFP_FEATURE_SUPPORT_TFCARD__*/
 #define __QUECTEL_UFP_FEATURE_SUPPORT_DEBUG_SHELL__
 
+#define __QUECTEL_UFP_FEATURE_SUPPORT_SMS__
+
 /**********************************************************
                 CLI Test Enable/Disable
 **********************************************************/

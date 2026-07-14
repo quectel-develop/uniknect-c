@@ -483,7 +483,7 @@ int ql_close(int sockfd)
         at_response_t resp = at_create_resp_new(128, 0, 10 * RT_TICK_PER_SECOND, NULL);
         at_obj_exec_cmd(handle->client, resp, "AT+QICLOSE=%d,1", sockfd);
         at_delete_resp(resp);
-    } 
+    }
     qosa_task_sleep_ms(1000);
     ql_socket_release_fd(handle->fd);
     ql_socket_pkt_delete_all(handle);
