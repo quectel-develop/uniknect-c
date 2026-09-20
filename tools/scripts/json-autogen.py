@@ -19,6 +19,19 @@ CONFIG = {
 }
 # =================================================
 
+# ===================== Platform profile ==================
+PLATFORM_PROFILE = {
+    "windows"   :   {
+        "intelliSenseName"  :   "Win32",
+        "intelliSenseMode"  :   "windows-gcc-arm",
+    },
+    "linux"     :   {
+        "intelliSenseName"  :   "Linux",
+        "intelliSenseMode"  :   "linux-gcc-arm",
+    }
+}
+# =================================================
+
 true = True
 false = False
 CMakePresets_Content = {
@@ -82,7 +95,7 @@ CMakePresets_Content = {
 c_cpp_properties_Content = {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
@@ -91,10 +104,10 @@ c_cpp_properties_Content = {
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "${workspaceFolder}/tools/windows/toolchain/mingw64/bin/gcc",
+            "compilerPath": "${workspaceFolder}/tools/linux/toolchain/arm-gcc/bin/arm-none-eabi-gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "gcc-arm"
+            "intelliSenseMode": "linux-gcc-arm"
         }
     ],
     "version": 4
@@ -191,8 +204,22 @@ class JsonManager:
 
 
     def _create_c_cpp_properties(self):
+        data = json.loads(json.dumps(c_cpp_properties_Content))
+
+        with open(self.config_path, "r", encoding="utf-8") as f:
+            Info_Bat = json.load(f)
+        buildEnv = Info_Bat["env"].lower()
+
+        profile = PLATFORM_PROFILE.get(buildEnv, PLATFORM_PROFILE["windows"])
+        compilerPath = f"${{workspaceFolder}}/tools/{buildEnv}/toolchain/arm-gcc/bin/arm-none-eabi-gcc"
+
+        data["configurations"][0]["name"] = profile["intelliSenseName"]
+        data["configurations"][0]["compilerPath"] = compilerPath
+        data["configurations"][0]["intelliSenseMode"] = profile["intelliSenseMode"]
+
+        # Write back to c_cpp_properties.json
         with open(self.c_cpp_path, "w", encoding="utf-8") as f:
-            json.dump(c_cpp_properties_Content, f, indent=4, ensure_ascii=False)
+            json.dump(data, f, indent=4, ensure_ascii=False)
         print(f"-- [{self.c_cpp_path}] generated successfully!")
 
 
